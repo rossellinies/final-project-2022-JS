@@ -13,4 +13,13 @@ Terminal
 4. type the following commands:
       1. git init
       2. git code .
+
 # final-project-2022-JS
+
+Notes: 
+Hello Professor, 
+
+I enjoyed creating this project. It was somewhat challenging, but I was able to incorportate various methods and practice everything I've learned this semester. I hope you like movies. 
+
+Thank you,
+Rossellinie S
