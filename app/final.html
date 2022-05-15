@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Final JavaScript Project</title> 	
+    <link
+      href="https://fonts.googleapis.com/css?family=Lobster"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body onLoad="scroll()">
+
+<h1>Top US Movies</h1>
+
+<!-- Headline with scrolling-->
+<div id=e2 style="position:static; top:20; left:200; width:385; font-style: italic;
+background-color:darkgrey; border:double medium">
+
+<script>
+msg = "Your life experience is a moving picture, of which you are writer, director, performer, producer and critic. " 
+        document.write(msg)
+</script>
+</div>
+
+<iframe frameborder="0" width="1000" height="300" style="position:static" src="https://www.youtube.com/embed/uI7fnrNhKSI?autoplay=1&mute=1">Sorry not available</iframe>
+
+<div id=dateDiv 
+    style="font-weight:bold; position:absolute; top:0px; right:10px"> 
+</div>
+
+<!-- Begin JavaScript --------------------------------------->
+<script>
+
+// Introduction  document.write//
+
+    document.write("<p>From horror to comedy to superheroes to action, a lot of really innovative movies and talented filmmakers will be putting their stuff on display in 2022.</p>");
+
+// Headline scroll function //
+
+var obj = document.getElementById('e2');
+
+var i = 0;                                      
+
+function scroll() {
+
+    var message = msg.substring(i,msg.length) + msg.substring(0,i);
+
+    obj.innerHTML = message;                    
+    
+    (i < msg.length) ? i++ : i=0;               
+
+    (i == 0) ? slow=3000 : slow=200;            
+    
+    scrolling = setTimeout('scroll()',slow);    
+}
+
+// Movie Release Date two dimension array witg a loop within a loop//
+
+    var month  = ["January","February","March",            
+              "April",  "May",     "June",
+              "July",   "August",  "September",
+              "October","November","December"  ];
+
+    var movie    = ["The 355","Scream","The Batman","Downton Abbey: A New Era","The Northman","Doctor Strange",                                             //create and load array
+                "Legally Blonde 3","John Wick: Chapter 4","Top Gun: Maverick","Jurassic World: Dominion","Thor: Love and Thunder","Don't Worry Darling"];            
+                            
+    var releaseDay = new Array(25,23,25,24,25,24,25,25,24,23,23,25); 
+
+    var info = [];                                 
+
+    info[0] = month;                               
+    info[1] = movie;
+    info[2] = releaseDay;
+
+    document.write("<table border=2>"); 
+    document.write("<tr><th bgcolor=gray colspan=12>Movie Name and Upcoming Release Date:</tr>"); 
+
+    for (row = 0; row < info.length; row++)
+    {
+        document.write("<tr>"); 
+        for (col = 0; col < info[0].length; col++)
+            document.write("<td>" + info[row][col] + "</td>");
+        document.write("</tr>"); 
+    }
+    document.write("</table>");
+
+// Rating while the loop // 
+
+    document.write("<h3>RATING</h3>");
+
+    document.write("<table width=100 border='2'>");
+    document.write("<tr>");
+    num = 1; 
+    while (num <= 5)
+    {
+        document.write('<td>' + num + '</td>');
+        num++
+    }
+    document.write("</tr>");
+    document.write("</table>");
+
+    document.write("<br><hr>");
+
+// Adding a text node & image
+
+function addText(text)
+{
+    if (document.createTextNode)
+    {
+        var newText = document.createTextNode(text);        
+        var element = document.getElementById("div1");      
+        element.appendChild(newText);                       
+    }
+}
+
+function addImage(imageURL)
+{
+    if (document.createElement)
+    {
+        var newImage    = document.createElement("img");    
+        newImage.src    = imageURL;                         
+        newImage.width  = 265;                              
+        newImage.height = 300;  
+        var element     = document.getElementById("div2");
+        element.appendChild(newImage);                      
+    }
+}
+
+// Cookie 
+
+function WriteCookie() {
+               if( document.myform.movie.value == "" ) {
+                  alert("Enter some value!");
+                  return;
+               }
+               cookievalue = escape(document.myform.movie.value) + ";";
+               document.cookie = "name=" + cookievalue;
+               document.write ("Setting Cookies : " + "name=" + cookievalue );
+            }
+
+function ReadCookie() {
+               var allcookies = document.cookie;
+               document.write ("All Cookies : " + allcookies );
+               
+               cookiearray = allcookies.split(';');
+               
+               for(var i=0; i<cookiearray.length; i++) {
+                  name = cookiearray[i].split('=')[0];
+                  value = cookiearray[i].split('=')[1];
+                  document.write ("Key is : " + name + " and Value is : " + value);
+               }
+            }
+
+// Event Function //
+
+    function confirmOrder() 
+    {
+        var answer = confirm('Click OK to confirm your order');
+        if (answer == true)
+            alert("Thank you! Enjoy the movie");
+        else 
+            alert("Your order for a free ticket has been cancelled");
+    }
+
+// Adapt full screen //
+
+self.moveTo(0,0);
+self.resizeTo(screen.availWidth,screen.availHeight);    
+
+// Date Function //
+
+    displayDate();                                             
+    timer = setInterval('displayDate()',1000);                  
+    function displayDate()                                      
+    {
+        document.getElementById('dateDiv').innerHTML = Date();  
+    }
+
+// Form and Win a Free Ticket//
+
+function validate() {
+
+var errorMsg = "";
+
+document.getElementById("f1").className = "hide";
+document.getElementById("f2").className = "hide";
+document.getElementById("f3").className = "hide";
+document.getElementById("f4").className = "hide";
+document.getElementById("f5").className = "hide";
+document.getElementById("f6").className = "hide";
+document.getElementById("f7").className = "hide";
+
+if (document.form1.firstname.value == '') {                 
+    document.getElementById("f1").className = "show";
+    errorMsg = "yes";
+}
+
+if (document.form1.lastname.value == '') {                  
+    document.getElementById("f2").className = "show";
+    errorMsg = "yes";
+}
+
+if (document.getElementById('addr').value == '') {              
+        document.getElementById("f3").className = "show";
+        errorMsg = "yes";
+    }
+
+if (document.form1.sex[0].checked == false &&               
+    document.form1.sex[1].checked == false    ) {  
+    document.getElementById("f4").className = "show";
+    errorMsg = "yes";
+}
+if (!document.getElementById('sgl').checked &&                  
+        !document.getElementById('mrd').checked &&
+        !document.getElementById('chd').checked    ) { 
+        document.getElementById("f5").className = "show";
+        errorMsg = "yes";
+    }
+
+enteredCategories = '';                                            
+for (i = 0; i < document.getElementById("slctMulti").length; i++)
+    {
+    if (document.getElementById("slctMulti").options[i].selected)
+            enteredCategories += document.form1.catergory.options[i].value + " ";
+    }
+    if (enteredCategories == '') {                                     
+        document.getElementById("f6").className = "show";
+        errorMsg = "yes";
+    }
+
+    if (errorMsg != '') {                                           
+        document.getElementById("f7").className = "show";
+        return(false);
+    }
+
+    submit = confirm('Click OK to confirm your order');             
+    if (submit == false)                                           
+         return(false)
+
+    return(true);                                       
+}
+
+</script>
+<!-- End JavaScript ----------------------------------------->
+
+<h2>Movie Posters Sneak Peek</h2>
+<img src="https://assets-prd.ignimgs.com/2022/05/09/avatar-the-way-of-water-poster-1652105534773.jpeg" 
+style="height:120\px; width:90px; opacity:0.5"
+onmouseover='this.style.opacity=1'
+onmouseout ='this.style.opacity=0.5'>
+
+<img src="https://dx35vtwkllhj9.cloudfront.net/universalstudios/jurassic-world-dominion/images/regions/us/onesheet.jpg"
+style="height:120px; width:90px; opacity:0.5"
+onmouseover='this.style.opacity=1'
+onmouseout ='this.style.opacity=0.5'>
+
+<img src="https://sportshub.cbsistatic.com/i/2022/01/26/c77b5cd2-e1db-4e45-9049-8eaa1b9a7cd0/the-batman.jpg"
+style="height:120px; width:90px; opacity:0.5"
+onmouseover='this.style.opacity=1'
+onmouseout ='this.style.opacity=0.5'>
+
+<img src="https://www.moviepostersgallery.com/wp-content/uploads/2022/01/Lostcity1.jpg" 
+style="height:120px; width:90px; opacity:0.5"
+onmouseover='this.style.opacity=1'
+onmouseout ='this.style.opacity=0.5'>
+
+<img src="https://www.moviepostersgallery.com/wp-content/uploads/2022/04/Doctorstrangeinthemultiverseofmadness3.jpg" 
+style="height:120px; width:90px; opacity:0.5"
+onmouseover='this.style.opacity=1'
+onmouseout ='this.style.opacity=0.5'>
+
+<img src="https://www.moviepostersgallery.com/wp-content/uploads/2022/01/3551.jpg" 
+style="height:120px; width:90px; opacity:0.5"
+onmouseover='this.style.opacity=1'
+onmouseout ='this.style.opacity=0.5'>
+
+<img src="https://www.moviepostersgallery.com/wp-content/uploads/2022/03/Adamproject1-1.jpg" 
+style="height:120px; width:90px; opacity:0.5"
+onmouseover='this.style.opacity=1'
+onmouseout ='this.style.opacity=0.5'>
+
+<img src="https://www.moviepostersgallery.com/wp-content/uploads/2019/09/Topgunmaverick1.jpg" 
+style="height:120px; width:90px; opacity:0.5"
+onmouseover='this.style.opacity=1'
+onmouseout ='this.style.opacity=0.5'>
+
+<img src="https://www.moviepostersgallery.com/wp-content/uploads/2022/04/Sonic21.jpg" 
+style="height:120px; width:90px; opacity:0.5"
+onmouseover='this.style.opacity=1'
+onmouseout ='this.style.opacity=0.5'>
+
+<hr>
+<H3>Get Your Movie Ticket Now!</H3>
+<br>Don't miss the opportunity to watch your favorite movie.</br>
+
+<a href="javascript:void(0)" 
+    onClick='popup=window.open("https://www.amctheatres.com/showtimes?rel=senior_pricing_discounts_promo","","width=280,height=150","back")'>Find a Theather</a>
+<a href="javascript:void(0)" onClick='popup.close()'>Close</a> 
+
+<hr>
+<br><br>
+<div id="div1" onClick="addText('The most honest form of filmmaking is to make a film for yourself by Peter Jackson. ')"
+               style="font:20px bold; cursor:hand">Click for a Movie Quote</div>
+
+<div id="div2" onClick="addImage('https://image.scoopwhoop.com/w620/s4.scoopwhoop.com/anj/directors/470647863.jpg')" 
+                style="font:20px bold; cursor:hand">Click for a Director Quote<br></div>            
+<br><br>
+ 
+<hr>
+<style>
+    .input {background-color:lightgray; color:000000; font-family:helvetica}
+    .show  {visibility:visible; color:red;  vertical-align:top}
+    .hide  {visibility:hidden; }
+</style>
+
+<h4>Enter your information for a chance to win a free movie ticket</h4>
+<FORM name=form1>
+    <fieldset style='width:500'>
+    <legend>Hello Friend,</legend>
+    <table>
+        <tr>
+        <td><b>First Name:<td><input type=text name=fullname size=40 class=input>
+                                <span id=f1 class=hide>*</span> 
+        <tr>
+        <td><b>Last Name:<td><input type=text name=fullname size=40 class=input>
+                                        <span id=f2 class=hide>*</span> 
+        <tr>
+        <td><b>Address:<td><textarea name=address id=addr rows=3 cols=42 class=input></textarea>
+                                            <span id=f3 class=hide>*</span>
+        <tr>
+        <td><b>Sex:<td><input type=radio name=sex value='M'>Male 
+                                            <input type=radio name=sex value='F'>Female 
+                                            <span id=f4 class=hide>*</span>
+        <tr>
+        <td><b>Status:<td><input type=checkbox name=status id=sgl value='S'>Single
+                            <input type=checkbox name=status id=mrd value='M'>Married
+                            <input type=checkbox name=status id=chd value='C'>Family                       
+                            <span id=f5 class=hide>*</span>
+
+        <tr>
+        <td><b>Favorite Movie Category:<td><select name=category id=slctMulti size=3 multiple class=input style='width:160'>
+                                                <option value='action'>Action</option> 
+                                                <option value='comedy'>Comedy</option>
+                                                <option value='drama'>Drama</option>  
+                                                <option value='family'>Family and Children</option> 
+                                                <option value='horror'>Horror & Thriller</option> 
+                                                <option value='romance'>Romance</option>
+                                                <option value='fiction'>Science Fiction</option>
+                                            </select>
+                                            <span id=f6 class=hide>*</span>
+        <tr height=20>
+        <tr>
+            <td><input type=submit value='ORDER' onClick='confirmOrder()'>
+            <td><input type=reset  value='CLEAR'>  
+        </table>
+        </fieldset>
+        <div id=f7 class=hide>Invalid entry, correct error fields above</div>
+</FORM>
+<hr>
+
+<form name = "myform" action = "">
+    Enter the name of your favorite movie: <input type = "text" name = "movie"/>
+    <input type = "button" value = "Add Movie" onclick = "WriteCookie();"/>
+    <input type = "button" value = "Get Movie" onclick = "ReadCookie()"/>
+</form>  
+<a href=final.html>See final.html</a> 
+
+</body>
+</html>
